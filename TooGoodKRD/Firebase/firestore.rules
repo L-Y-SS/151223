@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+	match /databases/{database}/documents {
+		function signedIn() { return request.auth != null; }
+
+		match /users/{userId} {
+			allow read: if signedIn();
+			allow write: if signedIn() && request.auth.uid == userId;
+		}
+
+		match /businesses/{businessId} {
+			allow read: if true;
+			allow create: if signedIn();
+			allow update, delete: if signedIn() && resource.data.ownerUserId == request.auth.uid;
+		}
+
+		match /items/{itemId} {
+			allow read: if true;
+			allow create: if signedIn() && request.resource.data.priceCents is int && request.resource.data.priceCents > 0;
+			allow update: if signedIn();
+		}
+
+		match /orders/{orderId} {
+			allow read: if signedIn();
+			allow create: if signedIn() && request.resource.data.amountCents is int && request.resource.data.amountCents > 0;
+			allow update: if signedIn();
+		}
+	}
+}
