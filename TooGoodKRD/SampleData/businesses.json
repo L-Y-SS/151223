@@ -1,0 +1,4 @@
+[
+	{ "name": "Duhok Bakery", "city": "Duhok", "category": "Bakery", "contactPhone": "+9647510000000", "latitude": 36.868, "longitude": 42.989, "ownerUserId": "seed" },
+	{ "name": "Zakho Market", "city": "Zakho", "category": "Grocery", "contactPhone": "+9647511111111", "latitude": 37.144, "longitude": 42.673, "ownerUserId": "seed" }
+]

@@ -1,0 +1,53 @@
+name: TooGoodKRD
+options:
+  minimumXcodeGenVersion: 2.38.0
+  deploymentTarget:
+    iOS: 16.0
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk
+    from: 10.24.0
+  Stripe:
+    url: https://github.com/stripe/stripe-ios
+    from: 24.0.0
+targets:
+  TooGoodKRD:
+    type: application
+    platform: iOS
+    sources:
+      - path: iOS/TooGoodKRD
+    info:
+      path: Config/Info.plist
+    entitlements:
+      path: Config/TooGoodKRD.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.TooGoodKRD
+        DEVELOPMENT_TEAM: ABCDE12345
+        SWIFT_VERSION: 5.0
+        INFOPLIST_FILE: Config/Info.plist
+    dependencies:
+      - package: Firebase
+        product: FirebaseAuth
+      - package: Firebase
+        product: FirebaseFirestore
+      - package: Firebase
+        product: FirebaseFirestoreSwift
+      - package: Firebase
+        product: FirebaseMessaging
+      - package: Firebase
+        product: FirebaseFunctions
+      - package: Stripe
+        product: StripePaymentSheet
+    capabilities:
+      backgroundModes:
+        modes: [remote-notification]
+      push: {}
+      applePay:
+        merchants:
+          - merchant.com.your.merchant
+schemes:
+  TooGoodKRD:
+    build:
+      targets:
+        TooGoodKRD: [run, test, profile, analyze, archive]
